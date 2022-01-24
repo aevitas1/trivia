@@ -1,0 +1,114 @@
+:root {
+  --main-bg: 245, 245, 220;
+  --main-answer-clr: 3, 192, 193;
+}
+
+.main_wrapper {
+  background: rgb(var(--main-bg));
+  width: 100vw;
+  height: 100vh;
+}
+
+.btn {
+  background: rgb(var(--main-answer-clr));
+}
+.btn-primary {
+  border-radius: 10px;
+}
+
+/* ********************************************* */
+/* HEADER */
+/* ********************************************* */
+.header_title {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.header_trivia {
+  display: flex;
+  flex-direction: row;
+}
+.header_trivia span p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 4.5rem;
+  z-index: 1;
+  margin: 1rem;
+}
+.header_trivia span p::after {
+  content: "";
+  display: flex;
+  top: 0.5rem;
+  position: absolute;
+  height: 5rem;
+  width: 3.4rem;
+  z-index: -1;
+}
+.header_trivia .red {
+  transform: skewX(15deg);
+  margin-right: 0;
+  z-index: 5;
+}
+.header_trivia .white {
+  transform: skewX(-5deg);
+  margin-left: 0.5rem;
+  z-index: 4;
+}
+.header_trivia .blue {
+  transform: skewX(0deg);
+  margin-left: 0.2rem;
+  z-index: 3;
+  margin-right: 0;
+}
+.header_trivia .yellow {
+  transform: skewX(0deg);
+  margin-left: 1rem;
+  margin-right: 0;
+}
+.header_trivia .teal {
+  transform: skewX(-5deg);
+  margin-right: 0;
+}
+.header_trivia .magenta {
+  transform: skewX(0deg);
+  margin-left: 0;
+}
+
+.header_trivia .red::after {
+  background-color: red;
+}
+.header_trivia .white::after {
+  background-color: white;
+}
+.header_trivia .blue::after {
+  background-color: blue;
+}
+.header_trivia .yellow::after {
+  background-color: yellow;
+}
+.header_trivia .teal::after {
+  background-color: teal;
+}
+.header_trivia .magenta::after {
+  background-color: magenta;
+}
+.header_title_wrapper .quizz {
+  font-size: 4.5rem;
+  letter-spacing: 1rem;
+  font-weight: 600;
+}
+
+/* ********************************************* */
+/* CONTENT */
+/* ********************************************* */
+
+.answer_btn {
+  display: flex;
+  width: 15rem;
+  height: 5rem;
+  align-text: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
