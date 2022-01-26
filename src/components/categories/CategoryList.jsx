@@ -1,6 +1,4 @@
-// import CategoryItem from "./CategoryItem";
 import { useState, useEffect } from "react";
-// import { CATEGORY_URL, API_URL } from "../../data/config";
 import axios from "axios";
 import Button from "../Button";
 import Questions from "../questions/Questions";
@@ -15,9 +13,10 @@ export function CategoryList() {
   const CATEGORY_URL = "https://opentdb.com/api_category.php";
 
   const [parameters, setParameters] = useState({
-    category: null,
-    amount: null,
-    difficulty: null,
+    category: "",
+    amount: "5",
+    difficulty: "",
+    type: "",
   });
 
   //fetch all categoriess
@@ -58,6 +57,24 @@ export function CategoryList() {
     setQuestions([]);
   };
 
+  // const handleType = (event) => {
+  //   setParameters((prevState) => ({
+  //     ...prevState,
+  //     type: event.target.value,
+  //   }));
+  //   console.log(event.target.value);
+  //   setQuestions([]);
+  // };
+
+  const handleType = (event) => {
+    setParameters((prevState) => ({
+      ...prevState,
+      type: event.target.value,
+    }));
+    console.log(event.target.value);
+    setQuestions([]);
+  };
+
   console.log(parameters);
   //fetch questions
   const FetchQuestions = () => {
@@ -68,23 +85,6 @@ export function CategoryList() {
       setQuestionNum(0);
       setScore(0);
     });
-    // if (selectedCategory === "") {
-    //   axios.get(`${API_URL}amount=${selectedAmount}`).then((res) => {
-    //     setQuestions(res.data.results);
-    //     setQuestionNum(0);
-    //     setScore(0);
-    //     console.log(questions);
-    //   }, []);
-    // } else {
-    //   axios
-    //     .get(`${API_URL}amount=${selectedAmount}&category=${selectedCategory}`)
-    //     .then((res) => {
-    //       setQuestions(res.data.results);
-    //       setQuestionNum(0);
-    //       setScore(0);
-    //       console.log(questions);
-    //     }, []);
-    // }
   };
   console.log(questions);
 
@@ -139,7 +139,27 @@ export function CategoryList() {
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
+
+        <div>
+          <label htmlFor="types">Multiple choice</label>
+          <input
+            type="radio"
+            name="types"
+            value="multiple"
+            onClick={handleType}
+          />
+          <label htmlFor="types">True / False</label>
+          <input
+            type="radio"
+            name="types"
+            value="boolean"
+            onClick={handleType}
+          />
+          <label htmlFor="types">Both types</label>
+          <input type="radio" name="types" value="" onClick={handleType} />
+        </div>
       </div>
+
       <Button onClick={() => FetchQuestions()}>Get Questions</Button>
 
       {questionNum === parameters.amount ? (
