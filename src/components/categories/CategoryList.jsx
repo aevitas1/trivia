@@ -1,20 +1,24 @@
 // import CategoryItem from "./CategoryItem";
 import { useState, useEffect } from "react";
-import { CATEGORY_URL, API_URL } from "../../data/config";
+// import { CATEGORY_URL, API_URL } from "../../data/config";
 import axios from "axios";
 import Button from "../Button";
 import Questions from "../questions/Questions";
+import { EndpointURL } from "../../data/EndpointURL";
 
 export function CategoryList() {
   const [categories, setCategories] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [loading, isLoading] = useState(false);
-  const [loadingQuestion, isLoadingQuestion] = useState(false);
   const [questionNum, setQuestionNum] = useState(0);
   const [score, setScore] = useState(0);
+  const CATEGORY_URL = "https://opentdb.com/api_category.php";
 
-  let selectedCategory = "";
-  let selectedQuestionAmount = 5;
+  const [parameters, setParameters] = useState({
+    category: null,
+    amount: null,
+    difficulty: null,
+  });
 
   //fetch all categoriess
   useEffect(() => {
@@ -27,42 +31,67 @@ export function CategoryList() {
   }, []);
 
   //category choice
-  const handleCategoryChange = (event) => {
-    selectedCategory = event.target.value;
+  const handleCategory = (event) => {
+    setParameters((prevState) => ({
+      ...prevState,
+      category: event.target.value,
+    }));
+    console.log(event.target.value);
+    setQuestions([]);
   };
 
   const handleAmount = (event) => {
-    selectedQuestionAmount = event.target.value;
+    setParameters((prevState) => ({
+      ...prevState,
+      amount: event.target.value,
+    }));
+    console.log(event.target.value);
+    setQuestions([]);
   };
 
+  const handleDifficulty = (event) => {
+    setParameters((prevState) => ({
+      ...prevState,
+      difficulty: event.target.value,
+    }));
+    console.log(event.target.value);
+    setQuestions([]);
+  };
+
+  console.log(parameters);
   //fetch questions
   const FetchQuestions = () => {
-    isLoadingQuestion(true);
-    if (selectedCategory === "") {
-      axios.get(`${API_URL}amount=${selectedQuestionAmount}`).then((res) => {
-        setQuestions(res.data.results);
-        setQuestionNum(0);
-        setScore(0);
-      }, []);
-    } else {
-      axios
-        .get(
-          `${API_URL}amount=${selectedQuestionAmount}&category=${selectedCategory}`
-        )
-        .then((res) => {
-          setQuestions(res.data.results);
-          setQuestionNum(0);
-          setScore(0);
-        }, []);
-    }
-    isLoadingQuestion(false);
-    console.log(loadingQuestion);
+    const endpoint = EndpointURL({ parameters });
+    console.log(endpoint);
+    axios.get(`${endpoint}`).then((res) => {
+      setQuestions(res.data.results);
+      setQuestionNum(0);
+      setScore(0);
+    });
+    // if (selectedCategory === "") {
+    //   axios.get(`${API_URL}amount=${selectedAmount}`).then((res) => {
+    //     setQuestions(res.data.results);
+    //     setQuestionNum(0);
+    //     setScore(0);
+    //     console.log(questions);
+    //   }, []);
+    // } else {
+    //   axios
+    //     .get(`${API_URL}amount=${selectedAmount}&category=${selectedCategory}`)
+    //     .then((res) => {
+    //       setQuestions(res.data.results);
+    //       setQuestionNum(0);
+    //       setScore(0);
+    //       console.log(questions);
+    //     }, []);
+    // }
   };
+  console.log(questions);
 
   // Validate Answers
   const questionNumber = questionNum;
   const validateAnswer = (answer) => {
-    if (answer === answer.correct_answer) {
+    if (answer === questions[questionNumber].correct_answer) {
       console.log("right");
       setQuestionNum(questionNum + 1);
       setScore(score + 1);
@@ -79,7 +108,7 @@ export function CategoryList() {
   ) : (
     <>
       <div>
-        <select name="select" defaultValue={""} onChange={handleCategoryChange}>
+        <select name="select" defaultValue={""} onChange={handleCategory}>
           <option value="" disabled>
             Select a category
           </option>
@@ -90,7 +119,10 @@ export function CategoryList() {
           ))}
         </select>
 
-        <select name="" id="" defaultValue={"5"} onChange={handleAmount}>
+        <select className="" defaultValue={""} onChange={handleAmount}>
+          <option value="" disabled>
+            Select amount of questions
+          </option>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -99,24 +131,30 @@ export function CategoryList() {
           <option value="50">50</option>
         </select>
 
-        <select>
-          <option value="">Easy</option>
-          <option value="">Medium</option>
-          <option value="">Hard</option>
+        <select className="" defaultValue={""} onChange={handleDifficulty}>
+          <option value="" disabled>
+            Select difficulty
+          </option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
         </select>
       </div>
       <Button onClick={() => FetchQuestions()}>Get Questions</Button>
 
-      {isLoadingQuestion === true ? (
-        ""
+      {questionNum === parameters.amount ? (
+        <h1>Limit reached</h1>
       ) : (
-        <>
-          {score}
+        <div>
+          <h3>
+            {questions.length !== 0 &&
+              `Question ${questionNum}/${parameters.amount}`}
+          </h3>
           <Questions
             questions={questions[questionNumber]}
             validateAnswer={validateAnswer}
           />
-        </>
+        </div>
       )}
     </>
   );

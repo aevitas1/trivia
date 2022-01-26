@@ -1,6 +1,5 @@
 import he from "he";
 import AnswerButton from "../AnswerButton";
-import { useState, useEffect } from "react";
 
 function Answers({ questions, validateAnswer }) {
   const shuffleAnswers = [

@@ -8,7 +8,7 @@ function Questions({ questions, validateAnswer }) {
       <Answer questions={questions} validateAnswer={validateAnswer} />
     </>
   ) : (
-    <h1>There are no questions</h1>
+    ""
   );
 }
 
