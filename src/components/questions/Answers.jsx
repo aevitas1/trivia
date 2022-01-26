@@ -8,8 +8,7 @@ function Answers({ questions, validateAnswer }) {
   ].sort(() => Math.random() - 0.5);
 
   return (
-    <>
-      {questions.correct_answer}
+    <div className="answer_container">
       {shuffleAnswers.map((answer, index) => (
         <AnswerButton
           onClick={() => validateAnswer(answer)}
@@ -19,7 +18,7 @@ function Answers({ questions, validateAnswer }) {
           {he.decode(`${answer}`)}
         </AnswerButton>
       ))}
-    </>
+    </div>
   );
 }
 
