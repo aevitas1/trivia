@@ -64,7 +64,7 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
       <div className="d-flex justify-content-center">
         {" "}
         <Button
-          variant="outline-primary"
+          variant="outline-light"
           onClick={() => showFilters(!filters)}
           aria-expanded={filters}
           aria-controls="collapse-filters"
@@ -76,7 +76,7 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
 
       <Col className="d-flex justify-content-center">
         <Collapse in={filters}>
-          <Col style={{ maxWidth: "350px" }} className="px-3">
+          <Col className="px-3" style={{ maxWidth: "400px" }}>
             <Row className="pt-3 pb-2">
               {" "}
               <select name="select" defaultValue={""} onChange={handleCategory}>
@@ -122,8 +122,11 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
             </Row>
 
             <Row>
-              <Col>
-                <label htmlFor="types" className="form-check-label">
+              <Col className="col-sm">
+                <label
+                  htmlFor="types"
+                  className="form-check-label text-center text-white"
+                >
                   Multiple choice
                 </label>
                 <Row className="justify-content-center">
@@ -136,8 +139,11 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
                   />
                 </Row>
               </Col>{" "}
-              <Col>
-                <label htmlFor="types" className="form-check-label">
+              <Col className="col-sm">
+                <label
+                  htmlFor="types"
+                  className="form-check-label text-center text-white"
+                >
                   True / False
                 </label>
                 <Row className="justify-content-center">
@@ -150,8 +156,11 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
                   />
                 </Row>
               </Col>{" "}
-              <Col>
-                <label htmlFor="types" className="form-check-label">
+              <Col className="col-sm">
+                <label
+                  htmlFor="types"
+                  className="form-check-label text-center text-white"
+                >
                   Both types
                 </label>
                 <Row className="justify-content-center">
