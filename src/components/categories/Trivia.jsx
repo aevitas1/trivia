@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import Button from "../Button";
+import { Button, Row, Col } from "react-bootstrap";
 import Questions from "../questions/Questions";
 import { EndpointURL } from "../../data/EndpointURL";
 
-function Trivia({ parameters, questions, setQuestions }) {
+function Trivia({ parameters, questions, setQuestions, showFilters }) {
   const [questionNum, setQuestionNum] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -14,6 +14,7 @@ function Trivia({ parameters, questions, setQuestions }) {
       setQuestions(() => res.data.results);
       setQuestionNum(0);
       setScore(0);
+      showFilters(false);
     });
   };
 
@@ -27,28 +28,41 @@ function Trivia({ parameters, questions, setQuestions }) {
       setQuestionNum(questionNum + 1);
     }
   };
-  return (
-    <>
-      <Button onClick={() => FetchQuestions()}>Get Questions</Button>
 
-      {questionNum == parameters.amount ? (
-        <h1>Your score = {score}</h1>
-      ) : (
-        <div className="question_container">
-          <h3>
-            {questions.length !== 0 &&
-              `Question ${questionNum + 1}/${parameters.amount}`}
-          </h3>
-          <div>
-            {" "}
-            <Questions
-              questions={questions[questionNumber]}
-              validateAnswer={validateAnswer}
-            />
-          </div>
-        </div>
-      )}
-    </>
+  return (
+    <div className="d-flex justify-content-center">
+      <Col lg={6} md={6} className="d-flex flex-column">
+        <Row lg={2} className="justify-content-center">
+          <Button
+            variant="danger"
+            onClick={() => FetchQuestions()}
+            className="m-3"
+          >
+            Get Questions
+          </Button>
+        </Row>
+
+        <Row className="text-center">
+          {JSON.stringify(questionNum) === parameters.amount ? (
+            <h1>Your score = {score}</h1>
+          ) : (
+            <div>
+              <h3>
+                {questions.length !== 0 &&
+                  `Question ${questionNum + 1}/${parameters.amount}`}
+              </h3>
+              <div>
+                {" "}
+                <Questions
+                  questions={questions[questionNumber]}
+                  validateAnswer={validateAnswer}
+                />
+              </div>
+            </div>
+          )}
+        </Row>
+      </Col>
+    </div>
   );
 }
 
