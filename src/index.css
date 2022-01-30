@@ -19,7 +19,7 @@ a:hover {
   transform: scale(0.95);
   transition: 150ms ease;
 }
-.answer_btn {
+/* .answer_btn {
   min-width: 280px;
   max-width: 280px;
   min-height: 120px;
@@ -27,9 +27,9 @@ a:hover {
 }
 .qa_container {
   width: 800px;
-}
+} */
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .answer_btn {
     min-width: 180px;
     max-width: 180px;
@@ -39,7 +39,16 @@ a:hover {
   .qa_container {
     width: 400px;
   }
-}
+} */
+/* @media only screen and (max-width: 500px) {
+  .answer_btn {
+    min-width: 95vw !important;
+    max-width: 95vw !important;
+    min-height: 80px !important;
+    max-height: 80px !important;
+    padding: 0 !important;
+  }
+} */
 /* ******************** countdown bar **************** */
 .countdown-bar {
   height: 1rem;
@@ -81,4 +90,20 @@ a:hover {
 .time-wrapper .time.down {
   opacity: 0;
   transform: translateY(100%);
+}
+.timebar {
+  position: relative;
+  width: 20rem;
+  height: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+.timebar::after {
+  content: attr(data-content);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.4rem;
+  font-size: 1.5rem;
+  margin: auto auto;
 }

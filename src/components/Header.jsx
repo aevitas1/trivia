@@ -4,42 +4,49 @@ function Header() {
   return (
     <Row className="justify-content-center pt-5 pb-3">
       <Col className="img_container">
-        <Row className="d-flex justify-content-center pb-2">
+        <Row className="d-flex justify-content-center">
           <p
-            className="bg-danger rounded-circle text-center d-flex justify-content-center align-items-center h2 mx-1"
+            className="bg-danger rounded-circle text-center d-flex justify-content-center align-items-center h2"
             style={{ width: "3rem", height: "3rem" }}
           >
-            Q
+            T
           </p>
 
           <p
-            className="bg-white rounded-circle text-center d-flex justify-content-center align-items-center h2 mx-1"
+            className="bg-white rounded-circle text-center d-flex justify-content-center align-items-center h2"
             style={{ width: "3rem", height: "3rem" }}
           >
-            U
+            R
           </p>
 
           <p
-            className="bg-warning rounded-circle text-center d-flex justify-content-center align-items-center h2 mx-1"
+            className="bg-warning rounded-circle text-center d-flex justify-content-center align-items-center h2"
             style={{ width: "3rem", height: "3rem" }}
           >
             I
           </p>
 
           <p
-            className="bg-dark text-white rounded-circle text-center d-flex justify-content-center align-items-center h2 mx-1"
+            className="bg-dark text-white rounded-circle text-center d-flex justify-content-center align-items-center h2"
             style={{ width: "3rem", height: "3rem" }}
           >
-            Z
+            V
           </p>
 
           <p
-            className="bg-success rounded-circle text-center d-flex justify-content-center align-items-center h2 mx-1"
+            className="bg-success rounded-circle text-center d-flex justify-content-center align-items-center h2"
             style={{ width: "3rem", height: "3rem" }}
           >
-            Z
+            I
+          </p>
+          <p
+            className="bg-primary text-white rounded-circle text-center d-flex justify-content-center align-items-center h2"
+            style={{ width: "3rem", height: "3rem" }}
+          >
+            A
           </p>
         </Row>
+
         <p className="fw-normal py-2 text-white">
           Powered by{" "}
           <a

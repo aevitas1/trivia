@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 
 function Filters({ setParameters, setQuestions, showFilters, filters }) {
   const [categories, setCategories] = useState([]);
@@ -57,7 +57,12 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
 
   return loading ? (
     <>
-      <h1>Loading...</h1>
+      <Col className="d-flex justify-content-center flex-column align-items-center align-content-center py-3">
+        <h1 className="text-white text-center py-3">Loading...</h1>
+        <Spinner animation="border" role="status" variant="light">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Col>
     </>
   ) : (
     <>

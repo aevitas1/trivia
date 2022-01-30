@@ -1,45 +1,31 @@
 import he from "he";
 import Answer from "./Answers";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import RenderTime from "./RenderTimer";
-import { useState } from "react";
+import { ProgressBar, Row } from "react-bootstrap";
+import TimerBar from "../questions/TimerBar";
 
-function Questions({
-  questions,
-  validateAnswer,
-  playing,
-  setPlaying,
-  setQuestionNum,
-  questionNum,
-}) {
-  const [key, setKey] = useState(0);
+function Questions({ questions, validateAnswer, setQuestionNum, questionNum }) {
+  const { progress } = TimerBar();
+
   return questions !== undefined ? (
     <>
-      <div className="timer-wrapper">
-        <CountdownCircleTimer
-          key={key}
-          isPlaying={playing}
-          duration={20}
-          colors={["#228B22", "#FFBF00", "#F28C28", "#FF0000"]}
-          colorsTime={[20, 16, 10, 0]}
-          size={120}
-          strokeWidth={12}
-        >
-          {RenderTime}
-        </CountdownCircleTimer>
-      </div>
+      <Row className="d-flex justify-content-center pt-3">
+        <ProgressBar
+          className="timebar"
+          now={progress * 10}
+          variant="danger"
+          data-content={Math.ceil(progress)}
+        />
+      </Row>
       <p
         className="pb-2 text-white h3 d-flex justify-content-center align-items-center"
         style={{ height: "220px" }}
       >
         {he.decode(`${questions.question}`)}
       </p>
+
       <Answer
         questions={questions}
         validateAnswer={validateAnswer}
-        setPlaying={setPlaying}
-        playing={playing}
-        setKey={setKey}
         setQuestionNum={setQuestionNum}
         questionNum={questionNum}
       />

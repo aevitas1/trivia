@@ -1,36 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Row, Col } from "react-bootstrap";
 import Questions from "../questions/Questions";
 import { EndpointURL } from "../../data/EndpointURL";
 import { Link } from "react-router-dom";
+import TimerBar from "../questions/TimerBar";
 
 function Trivia({ parameters, questions, setQuestions, showFilters }) {
   const [questionNum, setQuestionNum] = useState(0);
   const [score, setScore] = useState(0);
-  const [playing, setPlaying] = useState(false);
+  const { setRunning } = TimerBar();
 
   const FetchQuestions = () => {
     const endpoint = EndpointURL({ parameters });
     axios.get(`${endpoint}`).then((res) => {
-      setQuestions(() => res.data.results);
+      const shuffledAnswers = res.data.results.map((question) => ({
+        ...question,
+        answers: [question.correct_answer, ...question.incorrect_answers].sort(
+          () => Math.random() - 0.5
+        ),
+      }));
+      setQuestions(shuffledAnswers);
       setQuestionNum(0);
       setScore(0);
+      setRunning(true);
       showFilters(false);
-      setPlaying(true);
     });
   };
-
   // Validate Answers
   const questionNumber = questionNum;
   const validateAnswer = (answer) => {
-    if (playing === true) {
-      if (answer === questions[questionNumber].correct_answer) {
-        setScore(score + 1);
-        setPlaying(false);
-      } else {
-        setPlaying(false);
-      }
+    if (answer === questions[questionNumber].correct_answer) {
+      setScore(score + 1);
+      setQuestionNum(questionNum + 1);
+    } else {
+      setQuestionNum(questionNum + 1);
     }
   };
 
@@ -49,7 +53,12 @@ function Trivia({ parameters, questions, setQuestions, showFilters }) {
         </Row>
         <Row className="text-center qa_container">
           {JSON.stringify(questionNum) === parameters.amount ? (
-            <h1>Your score = {score}</h1>
+            <>
+              <Col className="d-flex justify-content-center align-items-center align-content-center flex-column text-white">
+                <h2 className="p-5">Game Ended</h2>
+                <h4>Your score is {score}</h4>
+              </Col>
+            </>
           ) : (
             <div>
               <p className="pt-3 text-white h5">
@@ -60,8 +69,6 @@ function Trivia({ parameters, questions, setQuestions, showFilters }) {
                 <Questions
                   questions={questions[questionNumber]}
                   validateAnswer={validateAnswer}
-                  setPlaying={setPlaying}
-                  playing={playing}
                   setQuestionNum={setQuestionNum}
                   questionNum={questionNum}
                 />
