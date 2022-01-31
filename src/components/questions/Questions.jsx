@@ -1,13 +1,11 @@
-import { useContext, useReducer } from "react";
+import { useContext } from "react";
 import he from "he";
-import Answer from "./Answers";
 import { Row, Col, Spinner } from "react-bootstrap";
 import TriviaContext from "../../data/TriviaContext";
-import TimeBarReducer, { ACTIONS } from "./TimeBarReducer";
 import TimerBar from "./TimerBar";
 
-function Questions({ validateAnswer }) {
-  const { loading, questions, questionNum, progress } =
+function Questions({ parameters }) {
+  const { loading, questions, questionNum, progress, score } =
     useContext(TriviaContext);
 
   if (questions.length > 0) {
@@ -17,6 +15,13 @@ function Questions({ validateAnswer }) {
         <Col className="d-flex justify-content-center flex-column align-items-center align-content-center py-3">
           <h1 className="text-white text-center py-3">Loading...</h1>
           <Spinner animation="border" role="status" variant="light"></Spinner>
+        </Col>
+      </>
+    ) : questionNum === parameters.amount ? (
+      <>
+        <Col className="d-flex justify-content-center align-items-center align-content-center flex-column text-white">
+          <h2 className="p-5">Game Ended</h2>
+          <h4>Your score is {score}</h4>
         </Col>
       </>
     ) : (
@@ -31,7 +36,6 @@ function Questions({ validateAnswer }) {
           {he.decode(`${questions[`${questionNum}`].question}`)}
         </p>
         {progress < 0 ? <h3 className="text-white">Too late...</h3> : ""}
-        <Answer validateAnswer={validateAnswer} />
       </>
     );
   } else {

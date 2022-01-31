@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import he from "he";
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Row, Button, Col, Spinner } from "react-bootstrap";
 import TriviaContext from "../../data/TriviaContext";
 
-function Answers({ validateAnswer }) {
+function Answers() {
   const {
     questions,
     setQuestionNum,
@@ -11,6 +11,8 @@ function Answers({ validateAnswer }) {
     running,
     setProgress,
     setRunning,
+    validateAnswer,
+    loadingAnswers,
   } = useContext(TriviaContext);
 
   const handleNextQuestion = () => {
@@ -19,7 +21,15 @@ function Answers({ validateAnswer }) {
     setProgress(100);
   };
 
-  return (
+  return loadingAnswers ? (
+    <>
+      {" "}
+      <Col className="d-flex justify-content-center flex-column align-items-center align-content-center py-3">
+        <h1 className="text-white text-center py-3">Loading...</h1>
+        <Spinner animation="border" role="status" variant="light"></Spinner>
+      </Col>
+    </>
+  ) : questions.length > 0 ? (
     <>
       <Container className="d-flex justify-content-center align-items-center align-content-center flex-wrap w-100 m-0 p-0">
         {questions[`${questionNum}`].answers.map((answer, index) => (
@@ -54,6 +64,8 @@ function Answers({ validateAnswer }) {
         </>
       </Row>
     </>
+  ) : (
+    <></>
   );
 }
 

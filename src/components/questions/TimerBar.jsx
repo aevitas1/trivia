@@ -2,7 +2,7 @@ import { ProgressBar } from "react-bootstrap";
 import TimeBarReducer from "./TimeBarReducer";
 
 function TimerBar() {
-  const { state, initialState } = TimeBarReducer();
+  const { state } = TimeBarReducer();
 
   return (
     <>

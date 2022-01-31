@@ -6,6 +6,9 @@ import { useState } from 'react'
 import { Container } from "react-bootstrap";
 import About from "./About";
 import { TriviaProvider } from './data/TriviaContext'
+import Questions from "./components/questions/Questions";
+import Answers from "./components/questions/Answers";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -29,10 +32,13 @@ function App() {
                 <TriviaProvider>
                   <Filters setParameters={setParameters} filters={filters} showFilters={showFilters} />
                   <Trivia setParameters={setParameters} parameters={parameters} showFilters={showFilters} />
+                  <Questions parameters={parameters} />
+                  <Answers />
                 </TriviaProvider>
               </>} />
             <Route path='/about' element={<About />} />
           </Routes>
+          <Footer />
         </Container>
       </div>
     </Router>
