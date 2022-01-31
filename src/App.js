@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react'
 import { Container } from "react-bootstrap";
 import About from "./About";
+import { TriviaProvider } from './data/TriviaContext'
+
 
 function App() {
   const [parameters, setParameters] = useState({
@@ -13,7 +15,6 @@ function App() {
     difficulty: "",
     type: "",
   });
-  const [questions, setQuestions] = useState([]);
   const [filters, showFilters] = useState(false);
 
 
@@ -25,15 +26,16 @@ function App() {
           <Routes>
             <Route path='/' element={
               <>
-                <Filters setParameters={setParameters} setQuestions={setQuestions} filters={filters} showFilters={showFilters} />
-                <Trivia setParameters={setParameters} parameters={parameters} questions={questions} setQuestions={setQuestions} showFilters={showFilters} />
+                <TriviaProvider>
+                  <Filters setParameters={setParameters} filters={filters} showFilters={showFilters} />
+                  <Trivia setParameters={setParameters} parameters={parameters} showFilters={showFilters} />
+                </TriviaProvider>
               </>} />
             <Route path='/about' element={<About />} />
           </Routes>
         </Container>
       </div>
     </Router>
-
   );
 }
 

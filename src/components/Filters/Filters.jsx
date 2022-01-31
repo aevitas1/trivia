@@ -59,9 +59,7 @@ function Filters({ setParameters, setQuestions, showFilters, filters }) {
     <>
       <Col className="d-flex justify-content-center flex-column align-items-center align-content-center py-3">
         <h1 className="text-white text-center py-3">Loading...</h1>
-        <Spinner animation="border" role="status" variant="light">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <Spinner animation="border" role="status" variant="light"></Spinner>
       </Col>
     </>
   ) : (

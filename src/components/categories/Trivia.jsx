@@ -1,18 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { Button, Row, Col } from "react-bootstrap";
 import Questions from "../questions/Questions";
 import { EndpointURL } from "../../data/EndpointURL";
 import { Link } from "react-router-dom";
-import TimerBar from "../questions/TimerBar";
+import TriviaContext from "../../data/TriviaContext";
+import TimeBarReducer, { ACTIONS } from "../questions/TimeBarReducer";
 
-function Trivia({ parameters, questions, setQuestions, showFilters }) {
-  const [questionNum, setQuestionNum] = useState(0);
+function Trivia({ parameters, showFilters }) {
+  const { state, reducer, dispatch } = TimeBarReducer();
+  const startTimer = () => dispatch({ type: ACTIONS.START });
   const [score, setScore] = useState(0);
-  const { setRunning } = TimerBar();
+  const {
+    questionNum,
+    setQuestionNum,
+    isLoading,
+    questions,
+    setQuestions,
+    running,
+    setRunning,
+    setProgress,
+  } = useContext(TriviaContext);
 
+  console.log(state.isRunning);
   const FetchQuestions = () => {
     const endpoint = EndpointURL({ parameters });
+    isLoading(true);
     axios.get(`${endpoint}`).then((res) => {
       const shuffledAnswers = res.data.results.map((question) => ({
         ...question,
@@ -23,18 +36,24 @@ function Trivia({ parameters, questions, setQuestions, showFilters }) {
       setQuestions(shuffledAnswers);
       setQuestionNum(0);
       setScore(0);
-      setRunning(true);
       showFilters(false);
+      setRunning(true);
+      setProgress(100);
+      isLoading(false);
+      startTimer();
     });
   };
   // Validate Answers
-  const questionNumber = questionNum;
   const validateAnswer = (answer) => {
-    if (answer === questions[questionNumber].correct_answer) {
-      setScore(score + 1);
-      setQuestionNum(questionNum + 1);
-    } else {
-      setQuestionNum(questionNum + 1);
+    if (running === true) {
+      if (answer === questions[questionNum].correct_answer) {
+        setScore(score + 1);
+        setRunning(false);
+        console.log("right");
+      } else {
+        setRunning(false);
+        console.log("wrong");
+      }
     }
   };
 
@@ -66,12 +85,7 @@ function Trivia({ parameters, questions, setQuestions, showFilters }) {
                   `Question ${questionNum + 1}/${parameters.amount}`}
               </p>
               <div>
-                <Questions
-                  questions={questions[questionNumber]}
-                  validateAnswer={validateAnswer}
-                  setQuestionNum={setQuestionNum}
-                  questionNum={questionNum}
-                />
+                <Questions validateAnswer={validateAnswer} />
               </div>
             </div>
           )}
