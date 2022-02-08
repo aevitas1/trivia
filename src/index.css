@@ -3,15 +3,7 @@
   min-height: 100vh;
   min-width: 100%;
 }
-.img_container {
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-}
-.collapsing {
-  overflow-x: visible !important;
-  overflow-y: hidden !important;
-}
+
 a:hover {
   color: rgba(255, 255, 255, 0.8);
 }
@@ -19,36 +11,6 @@ a:hover {
   transform: scale(0.95);
   transition: 150ms ease;
 }
-/* .answer_btn {
-  min-width: 280px;
-  max-width: 280px;
-  min-height: 120px;
-  max-height: 120px;
-}
-.qa_container {
-  width: 800px;
-} */
-
-/* @media only screen and (max-width: 600px) {
-  .answer_btn {
-    min-width: 180px;
-    max-width: 180px;
-    min-height: 120px;
-    max-height: 120px;
-  }
-  .qa_container {
-    width: 400px;
-  }
-} */
-/* @media only screen and (max-width: 500px) {
-  .answer_btn {
-    min-width: 95vw !important;
-    max-width: 95vw !important;
-    min-height: 80px !important;
-    max-height: 80px !important;
-    padding: 0 !important;
-  }
-} */
 /* ******************** countdown bar **************** */
 .countdown-bar {
   height: 1rem;

@@ -6,24 +6,39 @@ export const TriviaProvider = ({ children }) => {
   // timer
   const [running, setRunning] = useState(false);
   const [progress, setProgress] = useState(100);
+  const [timing, setTiming] = useState(100);
+  // reset timer
+  function resetTimer() {
+    setRunning(true);
+    setProgress(100);
+    setTiming(100);
+  }
+  // stop timer
+  function stopTimer() {
+    setRunning(false);
+  }
+  // filters
+  const [parameters, setParameters] = useState({
+    category: "",
+    amount: "5",
+    difficulty: "",
+    type: "",
+  });
+  const [filters, showFilters] = useState(false);
   // questions
   const [loading, isLoading] = useState(false);
   const [questionNum, setQuestionNum] = useState(0);
   const [questions, setQuestions] = useState([]);
   // answers
   const [score, setScore] = useState(0);
-  const [loadingAnswers, setLoadingAnswers] = useState(false);
-
   // Validate Answers
   const validateAnswer = (answer) => {
     if (running === true) {
       if (answer === questions[questionNum].correct_answer) {
         setScore(score + 1);
-        setRunning(false);
-        console.log("right");
+        stopTimer();
       } else {
-        setRunning(false);
-        console.log("wrong");
+        stopTimer();
       }
     }
   };
@@ -44,8 +59,13 @@ export const TriviaProvider = ({ children }) => {
         validateAnswer,
         score,
         setScore,
-        loadingAnswers,
-        setLoadingAnswers,
+        parameters,
+        setParameters,
+        filters,
+        showFilters,
+        resetTimer,
+        stopTimer,
+        timing,
       }}
     >
       {children}

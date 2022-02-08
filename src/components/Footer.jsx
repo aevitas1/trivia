@@ -1,20 +1,18 @@
 import { Link } from "react-router-dom";
-import { Row, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function Footer() {
   return (
     <>
-      <Row className="py-3">
-        <footer className="bottom-0 start-0 py-3 w-100">
-          {" "}
+      <footer className="bottom-0 start-0 py-3">
+        {" "}
+        <div className="d-flex justify-content-center align-items-center">
           <Link to="/about">
-            <div className="d-flex justify-content-center align-items-center">
-              {" "}
-              <Button>About</Button>
-            </div>
+            {" "}
+            <Button>About</Button>
           </Link>
-        </footer>
-      </Row>
+        </div>
+      </footer>
     </>
   );
 }

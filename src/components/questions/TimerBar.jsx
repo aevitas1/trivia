@@ -1,52 +1,39 @@
 import { ProgressBar } from "react-bootstrap";
-import TimeBarReducer from "./TimeBarReducer";
+import { useEffect, useContext } from "react";
+import TriviaContext from "../../data/TriviaContext";
 
+let interval = undefined;
 function TimerBar() {
-  const { state } = TimeBarReducer();
+  const { running, progress, setRunning, setProgress, timing } =
+    useContext(TriviaContext);
+  useEffect(() => {
+    clearInterval(interval);
+    if (running) {
+      interval = setInterval(() => {
+        setProgress((prev) => prev - 1);
+      }, timing);
+    } else {
+      clearInterval(interval);
+    }
+  }, [running, setProgress, timing]);
+
+  useEffect(() => {
+    if (progress < 0) {
+      setRunning(false);
+      clearInterval(interval);
+    }
+  }, [progress, setRunning]);
 
   return (
     <>
       <ProgressBar
         className="timebar"
-        now={state.progress * 10}
+        now={progress}
         variant="danger"
-        data-content={Math.ceil(state.progress)}
+        data-content={Math.ceil(progress / 10)}
       />
     </>
   );
 }
-// let interval = undefined;
-// function TimerBar() {
-//   const { running, setRunning, progress, setProgress } =
-//     useContext(TriviaContext);
-
-//   useEffect(() => {
-//     if (running) {
-//       interval = setInterval(() => {
-//         setProgress((prev) => prev - 1);
-//       }, 100);
-//     } else {
-//       clearInterval(interval);
-//     }
-//   }, [running]);
-
-//   useEffect(() => {
-//     if (progress < 0) {
-//       setRunning(false);
-//       clearInterval(interval);
-//     }
-//   }, [progress]);
-
-//   return (
-//     <>
-//       <ProgressBar
-//         className="timebar"
-//         now={progress}
-//         variant="danger"
-//         data-content={Math.ceil(progress / 10)}
-//       />
-//     </>
-//   );
-// }
 
 export default TimerBar;

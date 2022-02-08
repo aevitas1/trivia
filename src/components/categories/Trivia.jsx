@@ -1,25 +1,20 @@
 import { useContext } from "react";
 import axios from "axios";
 import { Button, Row, Col } from "react-bootstrap";
-import Questions from "../questions/Questions";
 import { EndpointURL } from "../../data/EndpointURL";
-import { Link } from "react-router-dom";
 import TriviaContext from "../../data/TriviaContext";
-import TimeBarReducer, { ACTIONS } from "../questions/TimeBarReducer";
 
-function Trivia({ parameters, showFilters }) {
-  const { state, dispatch } = TimeBarReducer();
-  const startTimer = () => dispatch({ type: ACTIONS.START });
+function Trivia() {
   const {
+    parameters,
+    showFilters,
     setQuestionNum,
     isLoading,
     setQuestions,
-    setRunning,
-    setProgress,
     setScore,
+    resetTimer,
   } = useContext(TriviaContext);
 
-  console.log(state.isRunning);
   const FetchQuestions = () => {
     const endpoint = EndpointURL({ parameters });
     isLoading(true);
@@ -34,10 +29,8 @@ function Trivia({ parameters, showFilters }) {
       setQuestionNum(0);
       setScore(0);
       showFilters(false);
-      setRunning(true);
-      setProgress(100);
       isLoading(false);
-      startTimer();
+      resetTimer();
     });
   };
 

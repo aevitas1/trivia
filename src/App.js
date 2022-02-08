@@ -1,46 +1,32 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { TriviaProvider } from './data/TriviaContext'
+import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 import Trivia from "./components/categories/Trivia";
 import Filters from "./components/Filters/Filters";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState } from 'react'
-import { Container } from "react-bootstrap";
+import Game from './components/Game';
 import About from "./About";
-import { TriviaProvider } from './data/TriviaContext'
-import Questions from "./components/questions/Questions";
-import Answers from "./components/questions/Answers";
 import Footer from "./components/Footer";
 
-
 function App() {
-  const [parameters, setParameters] = useState({
-    category: "",
-    amount: "5",
-    difficulty: "",
-    type: "",
-  });
-  const [filters, showFilters] = useState(false);
-
-
   return (
     <Router>
-      <div className="main-container">
-        <Container fluid='md' className="justify-content-center">
-          <Header />
-          <Routes>
-            <Route path='/' element={
-              <>
-                <TriviaProvider>
-                  <Filters setParameters={setParameters} filters={filters} showFilters={showFilters} />
-                  <Trivia setParameters={setParameters} parameters={parameters} showFilters={showFilters} />
-                  <Questions parameters={parameters} />
-                  <Answers />
-                </TriviaProvider>
-              </>} />
-            <Route path='/about' element={<About />} />
-          </Routes>
-          <Footer />
-        </Container>
-      </div>
+      <Container fluid='md' className="justify-content-center main-container">
+        <Header />
+        <Routes>
+          <Route path='/' element={
+            <>
+              <TriviaProvider>
+                <Filters />
+                <Trivia />
+                <Game />
+              </TriviaProvider>
+            </>} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+        <Footer />
+      </Container>
+
     </Router>
   );
 }

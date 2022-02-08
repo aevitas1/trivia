@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 import { Col, Row, Spinner } from "react-bootstrap";
+import TriviaContext from "../../data/TriviaContext";
 
-function Filters({ setParameters, setQuestions, showFilters, filters }) {
+function Filters() {
   const [categories, setCategories] = useState([]);
   const [loading, isLoading] = useState(false);
-
+  const { setParameters, setQuestions, showFilters, filters } =
+    useContext(TriviaContext);
   //fetch all categoriess
   useEffect(() => {
     isLoading(true);
