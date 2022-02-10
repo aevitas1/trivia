@@ -17,10 +17,10 @@ function Game() {
         </Col>
       </>
     ) : questionNum === Number(parameters.amount) ? (
-      <>
+      <div className="text-center text-white py-5">
         <h1>Game Ended</h1>
         <h3>Your score is {score}</h3>
-      </>
+      </div>
     ) : (
       <>
         <TimerBar />

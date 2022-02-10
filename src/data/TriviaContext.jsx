@@ -10,8 +10,8 @@ export const TriviaProvider = ({ children }) => {
   // reset timer
   function resetTimer() {
     setRunning(true);
-    setProgress(100);
     setTiming(100);
+    setProgress(100);
   }
   // stop timer
   function stopTimer() {

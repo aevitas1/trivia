@@ -67,7 +67,6 @@ function Filters() {
   ) : (
     <>
       <div className="d-flex justify-content-center">
-        {" "}
         <Button
           variant="outline-light"
           onClick={() => showFilters(!filters)}
@@ -81,9 +80,8 @@ function Filters() {
 
       <Col className="d-flex justify-content-center">
         <Collapse in={filters}>
-          <Col className="px-3" style={{ maxWidth: "400px" }}>
+          <Col className="px-3" style={{ maxWidth: "300px" }}>
             <Row className="pt-3 pb-2">
-              {" "}
               <select name="select" defaultValue={""} onChange={handleCategory}>
                 <option value="" disabled>
                   Select a category
@@ -112,11 +110,7 @@ function Filters() {
             </Row>
 
             <Row className="pt-1 pb-2">
-              <select
-                className=""
-                defaultValue={""}
-                onChange={handleDifficulty}
-              >
+              <select defaultValue={""} onChange={handleDifficulty}>
                 <option value="" disabled>
                   Select difficulty
                 </option>
@@ -143,7 +137,7 @@ function Filters() {
                     className="p-2 form-check-input"
                   />
                 </Row>
-              </Col>{" "}
+              </Col>
               <Col className="col-sm">
                 <label
                   htmlFor="types"
@@ -160,13 +154,13 @@ function Filters() {
                     className="p-2 form-check-input"
                   />
                 </Row>
-              </Col>{" "}
+              </Col>
               <Col className="col-sm">
                 <label
                   htmlFor="types"
                   className="form-check-label text-center text-white"
                 >
-                  Both types
+                  Mix of both
                 </label>
                 <Row className="justify-content-center">
                   <input

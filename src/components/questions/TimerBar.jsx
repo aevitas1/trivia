@@ -1,6 +1,7 @@
 import { ProgressBar } from "react-bootstrap";
 import { useEffect, useContext } from "react";
 import TriviaContext from "../../data/TriviaContext";
+import { Row } from "react-bootstrap";
 
 let interval = undefined;
 function TimerBar() {
@@ -17,6 +18,16 @@ function TimerBar() {
     }
   }, [running, setProgress, timing]);
 
+  function progressColor() {
+    let variant = "success";
+    if (progress < 66) {
+      variant = "warning";
+    }
+    if (progress < 33) {
+      variant = "danger";
+    }
+    return variant;
+  }
   useEffect(() => {
     if (progress < 0) {
       setRunning(false);
@@ -26,12 +37,14 @@ function TimerBar() {
 
   return (
     <>
-      <ProgressBar
-        className="timebar"
-        now={progress}
-        variant="danger"
-        data-content={Math.ceil(progress / 10)}
-      />
+      <Row className="d-flex justify-content-center">
+        <ProgressBar
+          className="timebar"
+          now={progress}
+          variant={progressColor()}
+          data-content={Math.ceil(progress / 10)}
+        />
+      </Row>
     </>
   );
 }

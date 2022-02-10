@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import he from "he";
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Row, Button, Col } from "react-bootstrap";
 import TriviaContext from "../../data/TriviaContext";
 
 function Answers() {
@@ -17,25 +17,28 @@ function Answers() {
     setQuestionNum(questionNum + 1);
     resetTimer();
   };
-
+  console.log(questions[questionNum].type);
   return (
     <>
       <Container className="d-flex justify-content-center align-items-center align-content-center flex-wrap w-100 m-0 p-0">
         {questions[`${questionNum}`].answers.map((answer, index) => (
-          <div
+          <Col
             onClick={() => validateAnswer(answer)}
             answer={answer}
             key={index}
+            lg={5}
+            sm={12}
+            xs={12}
             className={
               running === false
                 ? answer === questions[`${questionNum}`].correct_answer
-                  ? "btn btn-light m-1 py-5 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-success"
-                  : "btn btn-light m-1 py-5 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-danger"
-                : "btn btn-light m-1 py-5 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5"
+                  ? "btn btn-light m-1 py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-success"
+                  : "btn btn-light m-1 py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-danger"
+                : "btn btn-light m-1 py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5"
             }
           >
             {he.decode(`${answer}`)}
-          </div>
+          </Col>
         ))}
       </Container>
       <Row
