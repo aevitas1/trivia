@@ -8,7 +8,7 @@ function Footer() {
     ""
   ) : (
     <>
-      <footer className="bottom-0 start-0 py-3">
+      <footer className="bottom-0 start-0">
         <div className="d-flex justify-content-center align-items-center">
           <Link to="/about">
             <Button>About</Button>

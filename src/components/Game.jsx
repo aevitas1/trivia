@@ -22,14 +22,14 @@ function Game() {
         <h3>Your score is {score}</h3>
       </div>
     ) : (
-      <>
+      <div className="game-wrapper">
         <TimerBar />
         <Questions />
         <Answers />
-      </>
+      </div>
     );
   } else {
-    return null;
+    return <div className="game-wrapper"></div>;
   }
 }
 

@@ -17,10 +17,9 @@ function Answers() {
     setQuestionNum(questionNum + 1);
     resetTimer();
   };
-  console.log(questions[questionNum].type);
   return (
     <>
-      <Container className="d-flex justify-content-center align-items-center align-content-center flex-wrap w-100 m-0 p-0">
+      <Container className="d-flex justify-content-center align-items-center align-content-center flex-wrap m-0 p-0">
         {questions[`${questionNum}`].answers.map((answer, index) => (
           <Col
             onClick={() => validateAnswer(answer)}
@@ -29,12 +28,13 @@ function Answers() {
             lg={5}
             sm={12}
             xs={12}
+            style={{ margin: "2px" }}
             className={
               running === false
                 ? answer === questions[`${questionNum}`].correct_answer
-                  ? "btn btn-light m-1 py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-success"
-                  : "btn btn-light m-1 py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-danger"
-                : "btn btn-light m-1 py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5"
+                  ? "btn btn-light py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-success"
+                  : "btn btn-light py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5 border-danger"
+                : "btn btn-light py-4 d-flex justify-content-center align-items-center align-content-center text-center answer_btn border-5"
             }
           >
             {he.decode(`${answer}`)}

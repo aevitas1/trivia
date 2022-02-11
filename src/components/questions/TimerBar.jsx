@@ -20,10 +20,10 @@ function TimerBar() {
 
   function progressColor() {
     let variant = "success";
-    if (progress < 66) {
+    if (progress < 60) {
       variant = "warning";
     }
-    if (progress < 33) {
+    if (progress < 30) {
       variant = "danger";
     }
     return variant;

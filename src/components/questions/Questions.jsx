@@ -9,7 +9,7 @@ function Questions() {
     <>
       <Row
         className="m-auto pt-2 pb-3"
-        style={{ minHeight: "240px" }}
+        style={{ minHeight: "180px" }}
         lg={8}
         sm={12}
         xs={12}
@@ -17,8 +17,8 @@ function Questions() {
         <p
           className={
             progress < 0
-              ? "pb-2 text-white opacity-75 h4 d-flex justify-content-center pt-4"
-              : "pb-2 text-white h4 d-flex justify-content-center pt-4"
+              ? "pb-2 text-white opacity-75 h5 d-flex justify-content-center pt-4"
+              : "pb-2 text-white h5 d-flex justify-content-center pt-4"
           }
         >
           {he.decode(`${questions[`${questionNum}`].question}`)}
